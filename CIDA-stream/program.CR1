@@ -15,9 +15,9 @@ Public PTemp, batt_volt
 'Example:
 'Dim Counter
 
-Dim red_freq = 5
-Dim blue_freq = 7
-dim yellow_freq = 6
+Dim red_freq = 1
+Dim blue_freq = 1
+dim yellow_freq = 1
 
 'Declare Constants
 'Example:
