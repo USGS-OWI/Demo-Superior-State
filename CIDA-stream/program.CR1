@@ -4,13 +4,20 @@
 'date: 2014-06-17
 'program author: Luke Winslow
 
+SequentialMode 
+
 'Declare Public Variables
 'Example:
 Public PTemp, batt_volt
 
+
 'Declare Other Variables
 'Example:
 'Dim Counter
+
+Dim red_freq = 5
+Dim blue_freq = 7
+dim yellow_freq = 6
 
 'Declare Constants
 'Example:
@@ -33,8 +40,17 @@ BeginProg
 	Scan (1,Sec,0,0)
 		PanelTemp (PTemp,250)
 		Battery (batt_volt)
-		PortSet (1 ,1 )
+
+    		
+    IfTime (0,blue_freq,Sec)	PortSet (1 ,1 )
+    IfTime (0,red_freq,Sec)	PortSet (2 ,1 )
+    IfTime (0,yellow_freq,Sec)	PortSet (3 ,1 )  
+		  
+    Delay (1,1,Sec)
+
+		PortSet (1 ,0 )
 		PortSet (2 ,0 )
+		PortSet (3 ,0 )
 		
 		'Enter other measurement instructions
 		'Call Output Tables
