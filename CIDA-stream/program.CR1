@@ -32,7 +32,9 @@ EndTable
 BeginProg
 	Scan (1,Sec,0,0)
 		PanelTemp (PTemp,250)
-		Battery (Batt_volt)
+		Battery (batt_volt)
+		PortSet (1 ,1 )
+		
 		'Enter other measurement instructions
 		'Call Output Tables
 		'Example:
