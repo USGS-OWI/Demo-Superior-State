@@ -34,6 +34,7 @@ BeginProg
 		PanelTemp (PTemp,250)
 		Battery (batt_volt)
 		PortSet (1 ,1 )
+		PortSet (2 ,1 )
 		
 		'Enter other measurement instructions
 		'Call Output Tables
