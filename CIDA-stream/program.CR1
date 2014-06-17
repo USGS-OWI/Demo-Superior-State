@@ -15,9 +15,9 @@ Public PTemp, batt_volt
 'Example:
 'Dim Counter
 
-Dim red_freq = 1
-Dim blue_freq = 1
-dim yellow_freq = 1
+Dim red_freq = 3
+Dim blue_freq = 3
+dim yellow_freq = 3
 
 'Declare Constants
 'Example:
@@ -46,11 +46,11 @@ BeginProg
     	PortSet (1 ,1 )
     EndIf
     	
-    if IfTime (0,red_freq,Sec)	Then
+    If IfTime (1,red_freq,Sec)	Then
       PortSet (2 ,1 )
     EndIf
     
-    if IfTime (0,yellow_freq,Sec)	Then
+    if IfTime (2,yellow_freq,Sec)	Then
       PortSet (3 ,1 )
     EndIf
 		  
