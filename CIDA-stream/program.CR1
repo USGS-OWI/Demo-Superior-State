@@ -42,9 +42,17 @@ BeginProg
 		Battery (batt_volt)
 
     		
-    IfTime (0,blue_freq,Sec)	PortSet (1 ,1 )
-    IfTime (0,red_freq,Sec)	PortSet (2 ,1 )
-    IfTime (0,yellow_freq,Sec)	PortSet (3 ,1 )  
+    if IfTime (0,blue_freq,Sec) Then
+    	PortSet (1 ,1 )
+    EndIf
+    	
+    if IfTime (0,red_freq,Sec)	Then
+      PortSet (2 ,1 )
+    EndIf
+    
+    if IfTime (0,yellow_freq,Sec)	Then
+      PortSet (3 ,1 )
+    EndIf
 		  
     Delay (1,1,Sec)
 
