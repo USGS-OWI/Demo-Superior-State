@@ -8,7 +8,9 @@ SequentialMode
 
 'Declare Public Variables
 'Example:
-Public PTemp, batt_volt
+Public PTemp, batt_volt, avgtemp, avgdiff
+
+Public troll(2) As Float
 
 
 'Declare Other Variables
@@ -40,6 +42,12 @@ BeginProg
 	Scan (1,Sec,0,0)
 		PanelTemp (PTemp,250)
 		Battery (batt_volt)
+		
+    SDI12Recorder (troll(),5,0,"M!",1.0,0)
+    
+    AvgRun (avgtemp,1,troll(2),5)
+    
+    avgdiff = troll(2) - avgtemp
 
     		
     if IfTime (0,blue_freq,Sec) Then
