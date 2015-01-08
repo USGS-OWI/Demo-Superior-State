@@ -4,11 +4,11 @@
 'date: 2014-06-17
 'program author: Luke Winslow
 
-SequentialMode 
+SequentialMode
 
 'Declare Public Variables
 'Example:
-Public PTemp, batt_volt, avgtemp, avgdiff
+Public PTemp, batt_volt, avgtemp, avgdiff, blue_freq
 
 Public troll(2) As Float
 
@@ -17,61 +17,80 @@ Public troll(2) As Float
 'Example:
 'Dim Counter
 
-Dim red_freq = 3
-Dim blue_freq = 3
-dim yellow_freq = 3
+Dim red_freq = 1
+
+Dim blue_high = 1
+Dim blue_low = 20
+
+Dim yellow_freq = 0
+Public index = 0
 
 'Declare Constants
 'Example:
-'CONST PI = 3.141592654	
+'CONST PI = 3.141592654
 
 'Define Data Tables
 DataTable (Test,1,1000)
-	DataInterval (0,15,Sec,10)
-	Minimum (1,batt_volt,FP2,0,False)
-	Sample (1,PTemp,FP2)
+  DataInterval (0,15,Sec,10)
+  Minimum (1,batt_volt,FP2,0,False)
+  Sample (1,PTemp,FP2)
 EndTable
 
 'Define Subroutines
 'Sub
-	'EnterSub instructions here
+'EnterSub instructions here
 'EndSub
 
 'Main Program
 BeginProg
-	Scan (1,Sec,0,0)
-		PanelTemp (PTemp,250)
-		Battery (batt_volt)
-		
-    SDI12Recorder (troll(),5,0,"M!",1.0,0)
-    
-    AvgRun (avgtemp,1,troll(2),5)
-    
-    avgdiff = troll(2) - avgtemp
 
-    		
-    if IfTime (0,blue_freq,Sec) Then
-    	PortSet (1 ,1 )
+  Scan (250,mSec,0,0)
+    index = index + 1
+    
+    If avgdiff > 0.05 Then
+      blue_freq = blue_high
+    Else
+      blue_freq = blue_low
     EndIf
-    	
-    If IfTime (1,red_freq,Sec)	Then
+
+
+    If index MOD blue_freq = 0 Then
+      PortSet (1 ,1 )
+    EndIf
+
+    If index MOD red_freq = 0	Then
       PortSet (2 ,1 )
     EndIf
-    
-    if IfTime (2,yellow_freq,Sec)	Then
+
+    If index MOD yellow_freq = 0 Then
       PortSet (3 ,1 )
     EndIf
-		  
-    Delay (1,1,Sec)
 
-		PortSet (1 ,0 )
-		PortSet (2 ,0 )
-		PortSet (3 ,0 )
-		
-		'Enter other measurement instructions
-		'Call Output Tables
-		'Example:
-		CallTable Test
-	NextScan
+    Delay (1,250,mSec)
+
+    PortSet (1 ,0 )
+    PortSet (2 ,0 )
+    PortSet (3 ,0 )
+  NextScan
+
+  SlowSequence
+  Scan (1,Sec,0,0)
+    PanelTemp (PTemp,250)
+    Battery (batt_volt)
+
+    SDI12Recorder (troll(),5,0,"M!",1.0,0)
+
+    AvgRun (avgtemp,1,troll(2),5)
+
+    avgdiff = troll(2) - avgtemp
+
+
+    'Enter other measurement instructions
+    'Call Output Tables
+    'Example:
+    CallTable Test
+  NextScan
+
+
 EndProg
 
