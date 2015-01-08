@@ -1,0 +1,22 @@
+environment:
+  WARNINGS_ARE_ERRORS: 1
+
+init:
+  ps: |
+        Get-Date
+        $ErrorActionPreference = "Stop"
+
+install:
+  - ps: |
+        Invoke-WebRequest http://raw.github.com/USGS-OWI/campbell-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
+        Import-Module '..\appveyor-tool.ps1'
+        Bootstrap
+
+build_script:
+  - travis-tool.sh build_step
+
+test_script:
+  - travis-tool.sh test_program CID-stream/program.CR1
+
+on_failure:
+  - travis-tool.sh dump_logs
