@@ -16,7 +16,7 @@ build_script:
   - travis-tool.sh build_step
 
 test_script:
-  - travis-tool.sh test_program CID-stream/program.CR1
+  - travis-tool.sh test_program CIDA-stream/program.CR1
 
 on_failure:
   - travis-tool.sh dump_logs
