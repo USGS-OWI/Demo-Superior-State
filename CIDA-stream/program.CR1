@@ -17,7 +17,7 @@ Public troll(2) As Float
 'Example:
 'Dim Counter
 
-Dim red_freq = 1 plus typo
+Dim red_freq = 1
 
 Dim blue_high = 1
 Dim blue_low = 20
